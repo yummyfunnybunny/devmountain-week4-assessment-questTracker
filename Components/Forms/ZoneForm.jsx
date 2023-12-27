@@ -26,17 +26,21 @@ function ZoneForm(props) {
   );
 
   // ANCHOR == Set Images for Uploading ==
+  // NOTE - I cant directly use 'setMap()' inside the onChange event handler on line 168 to set the image without getting an interesting error
+  // So i have to use the below 7 lines of code as a work-around
   let uploadedMap;
-  // let uploadedImage;
   useEffect(() => {
     setMap(uploadedMap);
   }, []);
-  // useEffect(() => {
-  //   setMap(uploadedImage);
-  // }, []);
   const setMapToUpload = (e) => {
     uploadedMap = e.target.files[0];
   };
+
+  // NOTE - this is identical code to the above 7 lines, but for the commented out 2nd image input on line 179
+  // let uploadedImage;
+  // useEffect(() => {
+  //   setMap(uploadedImage);
+  // }, []);
   // const setImageToUpload = (e) => {
   //   uploadedImage = e.target.files[0];
   // };
@@ -48,6 +52,8 @@ function ZoneForm(props) {
 
     // store input values in object
     const formData = new FormData();
+
+    // NOTE - the below code was an attempt to do multiple 'append' functions on my formData and build one large formData that I'd submit in my post request
     // formData.append("id", id);
     // formData.append("name", name);
 
@@ -170,6 +176,8 @@ function ZoneForm(props) {
         </div>
 
         {/* IMAGE */}
+        {/* NOTE Having 2 image forms breaks the submission */}
+
         {/* <div className="form-row">
           <label htmlFor="image-input" className="form-label">
             Image:&emsp;
