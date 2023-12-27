@@ -31,6 +31,9 @@ function ZonePage() {
       });
   }, []);
 
+  console.log(zoneData);
+  console.log(questData);
+
   return (
     <div>
       <h1>ZONE PAGE</h1>
@@ -38,12 +41,14 @@ function ZonePage() {
       <h3>Quests:</h3>
       {questData.length > 0 ? (
         questData.map((quest) => {
+          console.log(quest);
           return (
             <div key={quest.id}>
               <h1>{quest.name}</h1>
               <p>{quest.type}</p>
               <p>{quest.description}</p>
-              <p>{quest.chain}</p>
+              <p>{quest.chain.name}</p>
+              <p>{quest.chain.position}</p>
               <p>{quest.reward.type}</p>
               <p>{quest.reward.description}</p>
             </div>

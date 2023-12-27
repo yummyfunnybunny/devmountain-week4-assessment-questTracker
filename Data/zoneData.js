@@ -9,8 +9,8 @@ const zoneData = [
       npcs: 5,
       dungeons: 1,
       bosses: 1,
-      miniboss: 1,
-      pointOfInterest: 3,
+      minibosses: 1,
+      pointsOfInterest: 3,
     },
   },
 ];

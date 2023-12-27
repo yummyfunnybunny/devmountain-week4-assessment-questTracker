@@ -9,7 +9,10 @@ const questData = [
       type: "secret exit",
       description: "takes you to whatever zone, blahblah level",
     },
-    chain: "whatever Chain",
+    chain: {
+      name: "whatever Chain",
+      position: 0,
+    },
   },
 ];
 
