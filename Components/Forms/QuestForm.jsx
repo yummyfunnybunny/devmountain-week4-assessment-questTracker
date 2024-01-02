@@ -1,10 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import "./Form.css";
 
 function QuestForm(props) {
-  // console.log(props.currentQuest);
-  // console.log(props.currentQuest.reward.type);
   // ANCHOR input States
   const [id, setId] = useState(props.currentQuest.id);
   const [name, setName] = useState(props.currentQuest.name);
@@ -17,10 +15,29 @@ function QuestForm(props) {
   const [rewardDesc, setRewardDesc] = useState(
     props.currentQuest.reward.description
   );
-  const [chainName, setChainName] = useState(props.currentQuest.chain.name);
+  const [chainId, setChainId] = useState(props.currentQuest.chain.id);
   const [chainPos, setChainPos] = useState(props.currentQuest.chain.position);
+  const [chosenChain, setChosenChain] = useState(
+    props.chainData.filter((chain, idx) => {
+      return chain.id === chainId;
+    })
+  );
 
-  // console.log(name);
+  // console.log("props:");
+  // console.log(props);
+
+  // useEffect(() => {
+  //   const chooseChain = props.chainData.filter((chain) => {
+  //     return chain.id === chainId;
+  //   });
+  //   setChosenChain(chooseChain);
+  // }, []);
+  console.log("chosenChain:");
+  console.log(chosenChain);
+  console.log("chosenChain.length:");
+  console.log(chosenChain.length);
+  console.log("chainId:");
+  console.log(chainId);
 
   // ANCHOR Functions
   const submitForm = (e) => {
@@ -39,7 +56,7 @@ function QuestForm(props) {
         description: rewardDesc,
       },
       chain: {
-        name: chainName,
+        id: chainId,
         position: chainPos,
       },
     };
@@ -54,9 +71,10 @@ function QuestForm(props) {
         .then((res) => {
           console.log(res.data.message);
           props.setQuestData(res.data.questData);
+          // props.setChainData(res.data.chainData);
         })
         .catch((err) => {
-          console.log(err);
+          console.log(err.response.data.message);
         });
     } else {
       console.log("PUT REQUEST SENT");
@@ -65,6 +83,7 @@ function QuestForm(props) {
         .then((res) => {
           console.log(res.data.message);
           props.setQuestData(res.data.questData);
+          props.setChainData(res.data.chainData);
         })
         .catch((err) => {
           console.log(err);
@@ -139,13 +158,12 @@ function QuestForm(props) {
             defaultValue={zone}
             onChange={(e) => setZone(e.target.value)}
           >
-            {/* TODO map all zone names */}
             <option value="" disabled>
               - Choose Zone -
             </option>
-            <option value="zone-1">Zone 1</option>
-            <option value="zone-2">Zone 2</option>
-            <option value="zone-3">Zone 3</option>
+            {props.zoneData.map((z) => {
+              return <option value={z.name}>{z.name}</option>;
+            })}
           </select>
         </div>
 
@@ -219,40 +237,58 @@ function QuestForm(props) {
             name="chain-name"
             className="form-input"
             required
-            // value={chainName}
-            defaultValue={chainName}
-            onChange={(e) => setChainName(e.target.value)}
+            // value={chainId}
+            defaultValue={chainId}
+            onChange={(e) => {
+              setChainId(e.target.value);
+              setChosenChain([
+                props.chainData.find((c) => {
+                  return c.id === e.target.value;
+                }),
+              ]);
+            }}
           >
-            {/* TODO dynamically fill this based on all chains */}
-            <option value="" disabled>
+            <option value="" selected disabled>
               - Choose Chain -
             </option>
-            <option value="chain-1">Chain 1</option>
-            <option value="chain-2">Chain 2</option>
-            <option value="chain-3">Chain 3</option>
+            <option value="">None</option>
+            {props.chainData.map((chain) => {
+              return <option value={chain.id}>{chain.name}</option>;
+            })}
           </select>
         </div>
 
         {/* Quest Chain Position */}
         <div className="form-row">
           <label htmlFor="chain-position-input" className="form-label">
-            Chain Name:&emsp;
+            Chain Position:&emsp;
           </label>
           <select
             id="chain-position-input"
             className="form-input"
-            required
+            // required
             // value={chainPos}
             defaultValue={chainPos}
             onChange={(e) => setChainPos(e.target.value)}
           >
-            {/* TODO map through the number of positions in the selected quest chain */}
             <option value="" disabled>
               - Choose Chain Position -
             </option>
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
+            {chosenChain.length > 0 && chosenChain[0] ? (
+              chosenChain[0].quests.map((q, idx) => {
+                return <option value={idx}>{idx + 1}</option>;
+              })
+            ) : (
+              <></>
+            )}
+            {/* If creating new quest, provide ability to place at chain length +1 */}
+            {chosenChain.length > 0 ? (
+              <option value={chosenChain[0].quests.length}>
+                {chosenChain[0].quests.length + 1}
+              </option>
+            ) : (
+              <></>
+            )}
           </select>
         </div>
 

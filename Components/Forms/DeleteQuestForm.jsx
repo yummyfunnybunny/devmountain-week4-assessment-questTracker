@@ -33,11 +33,11 @@ function DeleteQuestForm(props) {
       <form className="form" onSubmit={(e) => submitForm(e)}>
         <h3>Are you sure you want to delete this quest?</h3>
         <div className="form-row form-row--buttons">
-          <button className="form-button form-button--red" type="submit">
+          <button className="button button--red" type="submit">
             Delete
           </button>
           <button
-            className="form-button form-button form-button--green"
+            className="button button--green"
             onClick={() => props.setDisplayForm("none")}
           >
             Cancel

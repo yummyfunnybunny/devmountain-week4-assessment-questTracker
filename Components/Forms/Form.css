@@ -19,14 +19,13 @@
   align-items: center;
   background-color: white;
   font-size: 1.25rem;
+  border: 2px solid var(--dark);
+  border-radius: 5px;
 }
 
 .form-row {
   width: 100%;
   padding: 0.75rem 0;
-  /* display: flex;
-  justify-content: space-between; */
-  /* border: 1px solid green; */
 }
 
 .form-row--buttons {

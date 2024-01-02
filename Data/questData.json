@@ -1,0 +1,47 @@
+[
+  {
+    "id": "123456789-big-cliff-long-fall",
+    "name": "Big Cliff Long Fall",
+    "type": "find",
+    "description": "Bring the climber his lost rope so we can continue up the great lift!",
+    "zone": "Canyons",
+    "reward": { "type": "secret exit", "description": "IDK" },
+    "chain": { "id": "123456789-the-climber", "position": "0" }
+  },
+  {
+    "id": "123456789-icy-cliff-no-grip",
+    "name": "Icy Cliff No Grip",
+    "type": "find",
+    "description": "Bring the climber spikes so he can continue up the frozen mountainside!",
+    "zone": "Frozen Tundra",
+    "reward": { "type": "secret exit", "description": "IDK" },
+    "chain": { "id": "123456789-the-climber", "position": "3" }
+  },
+  {
+    "id": "123456789-dark-cave-need-light",
+    "name": "Dark Cave Need Lights",
+    "type": "find",
+    "description": "Bring the climber a light source so he can continue downward into the depths",
+    "zone": "Jungle",
+    "reward": { "type": "secret exit", "description": "IDK" },
+    "chain": { "id": "123456789-the-climber", "position": "3" }
+  },
+  {
+    "id": "123456789-unusual-behavior",
+    "name": "Unusual Behavior",
+    "type": "kill",
+    "description": "The invading gnolls have acquired the power to wield dark magic! find the sorcorer and slay them!",
+    "zone": "Farm",
+    "reward": { "type": "secret exit", "description": "IDK" },
+    "chain": { "id": "123456789-the-blood-gods", "position": "0" }
+  },
+  {
+    "id": "123456789-emergency-report",
+    "name": "Emergency Report",
+    "type": "find",
+    "description": "Find commander Hothorn at the Canyons outpost and warn him of the gnolls plans.",
+    "zone": "Farm",
+    "reward": { "type": "secret exit", "description": "IDK" },
+    "chain": { "id": "123456789-the-blood-gods", "position": "1" }
+  }
+]

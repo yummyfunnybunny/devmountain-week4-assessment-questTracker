@@ -1,0 +1,72 @@
+[
+  {
+    "id": "123456789-farms",
+    "name": "Farms",
+    "map": "987654321-farms.png",
+    "image": "123456789-farms.jpg",
+    "requirements": {
+      "quests": "5",
+      "npcs": "5",
+      "dungeons": "1",
+      "bosses": "1",
+      "minibosses": "1",
+      "pointsOfInterest": "3"
+    }
+  },
+  {
+    "id": "123456789-canyons",
+    "name": "Canyons",
+    "map": "987654321-canyons.png",
+    "image": "123456789-canyons.jpg",
+    "requirements": {
+      "quests": "5",
+      "npcs": "5",
+      "dungeons": "1",
+      "bosses": "1",
+      "minibosses": "1",
+      "pointsOfInterest": "3"
+    }
+  },
+  {
+    "id": "123456789-frozen-tundra",
+    "name": "Frozen Tundra",
+    "map": "987654321-frozen-tundra.png",
+    "image": "123456789-frozen-tundra.jpg",
+    "requirements": {
+      "quests": "5",
+      "npcs": "5",
+      "dungeons": "1",
+      "bosses": "1",
+      "minibosses": "1",
+      "pointsOfInterest": "3"
+    }
+  },
+  {
+    "id": "123456789-jungle",
+    "name": "Jungle",
+    "map": "987654321-jungle.png",
+    "image": "123456789-jungle.jpg",
+    "requirements": {
+      "quests": "5",
+      "npcs": "5",
+      "dungeons": "1",
+      "bosses": "1",
+      "minibosses": "1",
+      "pointsOfInterest": "3"
+    }
+  },
+  {
+    "id": "1703893094754-Haunted-Woods",
+    "name": "Haunted Woods",
+    "map": "1703893566293-haunted-woods.png",
+    "image": "1703893604364-haunted-woods-logo.jpg",
+    "requirements": {
+      "quests": "3",
+      "npcs": "3",
+      "dungeons": "3",
+      "bosses": "3",
+      "minibosses": "3",
+      "pointsOfInterest": "3"
+    }
+  }
+]

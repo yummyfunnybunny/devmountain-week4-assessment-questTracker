@@ -1,0 +1,16 @@
+[
+  {
+    "id": "123456789-the-climber",
+    "name": "The Climber",
+    "quests": [
+      "123456789-big-cliff-long-fall",
+      "123456789-dark-cave-need-light",
+      "123456789-icy-cliff-no-grip"
+    ]
+  },
+  {
+    "id": "123456789-the-blood-gods",
+    "name": "The Blood Gods",
+    "quests": ["123456789-unusual-behavior", "123456789-emergency-report"]
+  }
+]

@@ -32,7 +32,7 @@ function DeleteChainForm(props) {
     <div className="form-background">
       <form className="form" onSubmit={(e) => submitForm(e)}>
         <h3>Are you sure you want to delete this Chain?</h3>
-        <p>Any quests associated with this chain will be need to be updated</p>
+        <p>Any quests associated with this chain will need to be updated</p>
         <div className="form-row form-row--buttons">
           <button className="button button--red" type="submit">
             Delete

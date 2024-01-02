@@ -33,7 +33,10 @@ function HomePage() {
           <QuestForm
             setDisplayForm={setDisplayForm}
             setQuestData={setQuestData}
+            setChainData={setChainData}
             currentQuest={currentQuest}
+            chainData={chainData}
+            zoneData={zoneData}
           />
         );
 
@@ -128,19 +131,31 @@ function HomePage() {
 
   return (
     <>
-      {/* TOP HEADER */}
+      {/* ANCHOR TOP HEADER */}
       <h1 className="page-header">Quest Tracker</h1>
 
-      {/* DASHBOARD */}
-      <div className="dashboard-container">
+      {/* ANCHOR DASHBOARD */}
+      {/* NOTE - DISABLED, this is a planned feature that is not needed to get meet the project requirements */}
+      {/* <div className="dashboard-container">
         <h2>Dashboard</h2>
-      </div>
+      </div> */}
 
-      {/* CATEGORIES */}
+      {/* ANCHOR CATEGORIES */}
       <div className="categories-container">
-        {/* Zones */}
+        {/* ANCHOR ZONES */}
         <div id="zones-container" className="category">
-          <h1>Zones</h1>
+          {/* ANCHOR HEADER */}
+          <div className="category-header">
+            <div className="header-img">
+              <img className="header-icon" src="./icons/icon-zone.png" />
+            </div>
+            <h1 className="header-title">Zones</h1>
+            <div className="header-img">
+              <img className="header-icon" src="./icons/icon-zone.png" />
+            </div>
+          </div>
+
+          {/* ANCHOR LIST */}
           <div className="category-list">
             {zoneData.map((zone) => {
               return (
@@ -160,6 +175,8 @@ function HomePage() {
               );
             })}
           </div>
+
+          {/* ANCHOR ZONE BUTTON */}
           <button
             className="button button--green"
             onClick={() => {
@@ -183,9 +200,21 @@ function HomePage() {
             Create New Zone
           </button>
         </div>
-        {/* Chains */}
+
+        {/* ANCHOR CHAINS */}
         <div id="chains-container" className="category">
-          <h1>Quest Chains</h1>
+          {/* ANCHOR HEADER */}
+          <div className="category-header">
+            <div className="header-img">
+              <img className="header-icon" src="./icons/icon-chain3.png" />
+            </div>
+            <h1 className="header-title">Chains</h1>
+            <div className="header-img">
+              <img className="header-icon" src="./icons/icon-chain3.png" />
+            </div>
+          </div>
+
+          {/* ANCHOR LIST */}
           <div className="category-list">
             {chainData.map((chain) => {
               return (
@@ -194,12 +223,15 @@ function HomePage() {
                   id={chain.id}
                   name={chain.name}
                   quests={chain.quests}
+                  questData={questData}
                   setCurrentChain={setCurrentChain}
                   setDisplayForm={setDisplayForm}
                 />
               );
             })}
           </div>
+
+          {/* ANCHOR CHAIN BUTTON */}
           <button
             className="button button--green"
             onClick={() => {
@@ -214,9 +246,18 @@ function HomePage() {
             Create New Chain
           </button>
         </div>
-        {/* Quests */}
+        {/* ANCHOR QUESTS */}
         <div id="quests-container" className="category">
-          <h1>Quests</h1>
+          {/* ANCHOR HEADER */}
+          <div className="category-header">
+            <div className="header-img">
+              <img className="header-icon" src="./icons/icon-quest-type.png" />
+            </div>
+            <h1 className="header-title">Quests</h1>
+            <div className="header-img">
+              <img className="header-icon" src="./icons/icon-quest-type.png" />
+            </div>
+          </div>
           <div className="category-list">
             {questData.length > 0 ? (
               questData.map((quest) => {
@@ -232,6 +273,7 @@ function HomePage() {
                     chain={quest.chain}
                     setCurrentQuest={setCurrentQuest}
                     setDisplayForm={setDisplayForm}
+                    chainObject={chainData.find((c) => c.id === quest.chain.id)}
                   />
                 );
               })

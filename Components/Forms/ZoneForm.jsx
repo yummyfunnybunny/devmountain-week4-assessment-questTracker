@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 import "./Form.css";
 
 function ZoneForm(props) {
+  console.log("ZONE ID:");
+  console.log(props.currentZone.id);
   // ANCHOR input States
   const [id, setId] = useState(props.currentZone.id);
   const [name, setName] = useState(props.currentZone.name);
@@ -25,26 +27,6 @@ function ZoneForm(props) {
     props.currentZone.requirements.pointsOfInterest
   );
 
-  // ANCHOR == Set Images for Uploading ==
-  // NOTE - I cant directly use 'setMap()' inside the onChange event handler on line 168 to set the image without getting an interesting error
-  // So i have to use the below 7 lines of code as a work-around
-  let uploadedMap;
-  useEffect(() => {
-    setMap(uploadedMap);
-  }, []);
-  const setMapToUpload = (e) => {
-    uploadedMap = e.target.files[0];
-  };
-
-  // NOTE - this is identical code to the above 7 lines, but for the commented out 2nd image input on line 179
-  // let uploadedImage;
-  // useEffect(() => {
-  //   setMap(uploadedImage);
-  // }, []);
-  // const setImageToUpload = (e) => {
-  //   uploadedImage = e.target.files[0];
-  // };
-
   // ANCHOR Functions
   const submitForm = (e) => {
     // prevent refresh
@@ -53,54 +35,25 @@ function ZoneForm(props) {
     // store input values in object
     const formData = new FormData();
 
-    // NOTE - the below code was an attempt to do multiple 'append' functions on my formData and build one large formData that I'd submit in my post request
-    // formData.append("id", id);
-    // formData.append("name", name);
-
-    // const zoneRequirements = {
-    //   quests: reqQuests,
-    //   npcs: reqNpcs,
-    //   dungeons: reqDungeons,
-    //   bosses: reqBosses,
-    //   minibosses: reqMinibosses,
-    //   pointsOfInterest: reqPOIs,
-    // };
-
-    // formData.append("requirements", zoneRequirements);
-    // formData.append({
-    //   id: id,
-    //   name: name,
-    //   requirements: {
-    //     quests: reqQuests,
-    //     npcs: reqNpcs,
-    //     dungeons: reqDungeons,
-    //     bosses: reqBosses,
-    //     minibosses: reqMinibosses,
-    //     pointsOfInterest: reqPOIs,
-    //   },
-    // });
-
-    // const zone = {
-    //   id: id,
-    //   name: name,
-    //   requirements: {
-    //     quests: reqQuests,
-    //     npcs: reqNpcs,
-    //     dungeons: reqDungeons,
-    //     bosses: reqBosses,
-    //     minibosses: reqMinibosses,
-    //     pointsOfInterest: reqPOIs,
-    //   },
-    // };
-
+    console.log("map:");
     console.log(map);
-    console.log(uploadedMap);
-    formData.append("map", uploadedMap);
-    // formData.append("image", uploadedImage);
+    console.log("uploadedMap:");
+    // console.log(uploadedMap);
+    formData.append("id", id);
+    formData.append("map", map);
+    formData.append("image", image);
+    formData.append("name", name);
+    formData.append("quests", reqQuests);
+    formData.append("npcs", reqNpcs);
+    formData.append("dungeons", reqDungeons);
+    formData.append("bosses", reqBosses);
+    formData.append("minibosses", reqMinibosses);
+    formData.append("pointsOfInterest", reqPOIs);
+    console.log("formData:");
+    console.log(formData);
 
     // send axios request with new zone data
     if (!props.currentZone.id) {
-      console.log(formData);
       axios
         .post("/zone", formData, {
           headers: {
@@ -108,6 +61,8 @@ function ZoneForm(props) {
           },
         })
         .then((res) => {
+          console.log("res.data.zoneData:");
+          console.log(res.data.message);
           console.log(res.data.zoneData);
           props.setZoneData(res.data.zoneData);
         })
@@ -116,7 +71,11 @@ function ZoneForm(props) {
         });
     } else {
       axios
-        .put("/zone", zone)
+        .put("/zone", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
         .then((res) => {
           props.setZoneData(res.data.zoneData);
         })
@@ -127,21 +86,17 @@ function ZoneForm(props) {
     // close form
     props.setDisplayForm("none");
     // display success/fail mesage
+    // TODO - make popup alert components for helpful user-friendly alerts
   };
 
   // ANCHOR Return JSX
   return (
     <div className="form-background">
-      <form
-        className="form"
-        // encType="multipart/form-data"
-        // action="/upload"
-        onSubmit={(e) => submitForm(e)}
-      >
-        {/* HEADER */}
+      <form className="form" onSubmit={(e) => submitForm(e)}>
+        {/* ----- HEADER ----- */}
         {!props.currentZone.id ? <h2>Create Zone</h2> : <h2>Edit Zone</h2>}
 
-        {/* NAME */}
+        {/* ----- NAME ----- */}
         <div className="form-row">
           <label htmlFor="name-input" className="form-label">
             Name:&emsp;
@@ -157,7 +112,7 @@ function ZoneForm(props) {
           />
         </div>
 
-        {/* MAP */}
+        {/* ----- MAP ----- */}
         <div className="form-row">
           <label htmlFor="map-input" className="form-label">
             Map:&emsp;
@@ -167,18 +122,19 @@ function ZoneForm(props) {
             type="file"
             accept=".png, .jpeg, .jpg"
             name="map"
-            value={map}
+            // value={map}
             onChange={(e) => {
               console.log(e.target);
-              setMapToUpload(e);
+              // setMapToUpload(e);
+              setMap(e.target.files[0]);
             }}
           />
         </div>
 
-        {/* IMAGE */}
+        {/* ----- IMAGE ----- */}
         {/* NOTE Having 2 image forms breaks the submission */}
 
-        {/* <div className="form-row">
+        <div className="form-row">
           <label htmlFor="image-input" className="form-label">
             Image:&emsp;
           </label>
@@ -187,20 +143,21 @@ function ZoneForm(props) {
             type="file"
             accept=".png, .jpeg, .jpg"
             name="image"
-            value={image}
+            // value={image}
             onChange={(e) => {
               console.log(e.target);
-              setImageToUpload(e);
+              // setImageToUpload(e);
+              setImage(e.target.files[0]);
             }}
           />
-        </div> */}
+        </div>
 
         {/* REQUIREMENTS */}
         {/* <div className="form-row">
           <h4>Zone Requirements</h4>
         </div> */}
 
-        {/* QUESTS */}
+        {/* ----- QUESTS ----- */}
         <div className="form-row">
           <label htmlFor="quests-input" className="form-label">
             Quests:&emsp;
@@ -214,7 +171,7 @@ function ZoneForm(props) {
           />
         </div>
 
-        {/* NPCs */}
+        {/* ----- NPCs ----- */}
         <div className="form-row">
           <label htmlFor="npcs-input" className="form-label">
             NPCs:&emsp;
@@ -228,7 +185,7 @@ function ZoneForm(props) {
           />
         </div>
 
-        {/* DUNGEONS */}
+        {/* ----- DUNGEONS ----- */}
         <div className="form-row">
           <label htmlFor="dungeons-input" className="form-label">
             Dungeons:&emsp;
@@ -242,7 +199,7 @@ function ZoneForm(props) {
           />
         </div>
 
-        {/* BOSSES */}
+        {/* ----- BOSSES ----- */}
         <div className="form-row">
           <label htmlFor="bosses-input" className="form-label">
             Bosses:&emsp;
@@ -256,7 +213,7 @@ function ZoneForm(props) {
           />
         </div>
 
-        {/* MINI BOSSES */}
+        {/* ----- MINI BOSSES ----- */}
         <div className="form-row">
           <label htmlFor="minibosses-input" className="form-label">
             Mini-Bosses:&emsp;
@@ -270,7 +227,7 @@ function ZoneForm(props) {
           />
         </div>
 
-        {/* POINTS OF INTEREST */}
+        {/* ----- POINTS OF INTEREST ----- */}
         <div className="form-row">
           <label htmlFor="poi-input" className="form-label">
             Points Of Interest:&emsp;
@@ -284,7 +241,7 @@ function ZoneForm(props) {
           />
         </div>
 
-        {/* Buttons */}
+        {/* ----- Buttons ----- */}
         <div className="form-row form-row--buttons">
           <button className="button button--green" type="submit">
             Save

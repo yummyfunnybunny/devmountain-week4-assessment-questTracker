@@ -1,4 +1,24 @@
+:root {
+  --background: #ffffff;
+  --primary: #725ac1;
+  --secondary: #8d86c9;
+  --tertiary: #cac4ce;
+  --dark: #242038;
+  --light: #f7ece1;
+
+  /* --btn-green-1: #86c9a0; */
+  --btn-green-1: #5dc986;
+  /* --btn-green-2: #5f8f7d; */
+  --btn-green-2: #2c6651;
+  /* --btn-red-1: #c98e86; */
+  --btn-red-1: #c96f64;
+  /* --btn-red-2: #815668; */
+  --btn-red-2: #5a2f41;
+}
+
 html {
-  background-color: #1a1a2e;
-  color: #c5c5c5;
+  background-color: var(--background);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  /* background-color: #f3d9dc; */
+  /* color: #c5c5c5; */
 }
