@@ -1,23 +1,24 @@
-import "./HomePage.css";
+import './HomePage.css';
 // import "./main.css";
-import QuestItem from "../Items/QuestItem.jsx";
-import ChainItem from "../Items/ChainItem.jsx";
-import ZoneItem from "../Items/ZoneItem.jsx";
-import QuestForm from "../Forms/QuestForm.jsx";
-import ChainForm from "../Forms/ChainForm.jsx";
-import ZoneForm from "../Forms/ZoneForm.jsx";
-import DeleteQuestForm from "../Forms/DeleteQuestForm.jsx";
-import DeleteChainForm from "../Forms/DeleteChainForm.jsx";
-import DeleteZoneForm from "../Forms/DeleteZoneForm.jsx";
+import QuestItem from '../Items/QuestItem.jsx';
+import ChainItem from '../Items/ChainItem.jsx';
+import ZoneItem from '../Items/ZoneItem.jsx';
+import QuestForm from '../Forms/QuestForm.jsx';
+import ChainForm from '../Forms/ChainForm.jsx';
+import ZoneForm from '../Forms/ZoneForm.jsx';
+import DeleteQuestForm from '../Forms/DeleteQuestForm.jsx';
+import DeleteChainForm from '../Forms/DeleteChainForm.jsx';
+import DeleteZoneForm from '../Forms/DeleteZoneForm.jsx';
 // import { Link } from "react-router-dom";
-import axios from "axios";
-import { useState, useEffect } from "react";
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 
 function HomePage() {
   const [zoneData, setZoneData] = useState([]);
   const [questData, setQuestData] = useState([]);
   const [chainData, setChainData] = useState([]);
-  const [displayForm, setDisplayForm] = useState("none");
+  const [displayForm, setDisplayForm] = useState('none');
+  console.log(zoneData);
 
   const [currentQuest, setCurrentQuest] = useState({});
   const [currentChain, setCurrentChain] = useState({});
@@ -25,10 +26,10 @@ function HomePage() {
 
   const formDisplay = () => {
     switch (displayForm) {
-      case "none":
+      case 'none':
         return <></>;
 
-      case "quest":
+      case 'quest':
         return (
           <QuestForm
             setDisplayForm={setDisplayForm}
@@ -40,53 +41,27 @@ function HomePage() {
           />
         );
 
-      case "zone":
-        return (
-          <ZoneForm
-            setDisplayForm={setDisplayForm}
-            setZoneData={setZoneData}
-            currentZone={currentZone}
-          />
-        );
+      case 'zone':
+        return <ZoneForm setDisplayForm={setDisplayForm} setZoneData={setZoneData} currentZone={currentZone} />;
 
-      case "chain":
-        return (
-          <ChainForm
-            setDisplayForm={setDisplayForm}
-            setChainData={setChainData}
-            currentChain={currentChain}
-          />
-        );
+      case 'chain':
+        return <ChainForm setDisplayForm={setDisplayForm} setChainData={setChainData} currentChain={currentChain} />;
 
-      case "deleteQuest":
+      case 'deleteQuest':
         // console.log("delete form rendering");
         return (
-          <DeleteQuestForm
-            setDisplayForm={setDisplayForm}
-            deleteQuest={currentQuest}
-            setQuestData={setQuestData}
-          />
+          <DeleteQuestForm setDisplayForm={setDisplayForm} deleteQuest={currentQuest} setQuestData={setQuestData} />
         );
 
-      case "deleteChain":
+      case 'deleteChain':
         // console.log("delete form rendering");
         return (
-          <DeleteChainForm
-            setDisplayForm={setDisplayForm}
-            deleteChain={currentChain}
-            setChainData={setChainData}
-          />
+          <DeleteChainForm setDisplayForm={setDisplayForm} deleteChain={currentChain} setChainData={setChainData} />
         );
 
-      case "deleteZone":
+      case 'deleteZone':
         // console.log("delete form rendering");
-        return (
-          <DeleteZoneForm
-            setDisplayForm={setDisplayForm}
-            deleteZone={currentZone}
-            setZoneData={setZoneData}
-          />
-        );
+        return <DeleteZoneForm setDisplayForm={setDisplayForm} deleteZone={currentZone} setZoneData={setZoneData} />;
 
       default:
         return <></>;
@@ -96,7 +71,7 @@ function HomePage() {
   // Get ZoneData
   useEffect(() => {
     axios
-      .get("/zonesData")
+      .get('/zonesData')
       .then((res) => {
         setZoneData(res.data);
       })
@@ -108,7 +83,7 @@ function HomePage() {
   // Get QuestData
   useEffect(() => {
     axios
-      .get("/questsData")
+      .get('/questsData')
       .then((res) => {
         setQuestData(res.data);
       })
@@ -120,7 +95,7 @@ function HomePage() {
   // get chainData
   useEffect(() => {
     axios
-      .get("/chainsData")
+      .get('/chainsData')
       .then((res) => {
         setChainData(res.data);
       })
@@ -132,7 +107,7 @@ function HomePage() {
   return (
     <>
       {/* ANCHOR TOP HEADER */}
-      <h1 className="page-header">Quest Tracker</h1>
+      <h1 className='page-header'>Quest Tracker</h1>
 
       {/* ANCHOR DASHBOARD */}
       {/* NOTE - DISABLED, this is a planned feature that is not needed to get meet the project requirements */}
@@ -141,22 +116,22 @@ function HomePage() {
       </div> */}
 
       {/* ANCHOR CATEGORIES */}
-      <div className="categories-container">
+      <div className='categories-container'>
         {/* ANCHOR ZONES */}
-        <div id="zones-container" className="category">
+        <div id='zones-container' className='category'>
           {/* ANCHOR HEADER */}
-          <div className="category-header">
-            <div className="header-img">
-              <img className="header-icon" src="./icons/icon-zone.png" />
+          <div className='category-header'>
+            <div className='header-img'>
+              <img className='header-icon' src='./icons/icon-zone.png' />
             </div>
-            <h1 className="header-title">Zones</h1>
-            <div className="header-img">
-              <img className="header-icon" src="./icons/icon-zone.png" />
+            <h1 className='header-title'>Zones</h1>
+            <div className='header-img'>
+              <img className='header-icon' src='./icons/icon-zone.png' />
             </div>
           </div>
 
           {/* ANCHOR LIST */}
-          <div className="category-list">
+          <div className='category-list'>
             {zoneData.map((zone) => {
               return (
                 <ZoneItem
@@ -178,23 +153,23 @@ function HomePage() {
 
           {/* ANCHOR ZONE BUTTON */}
           <button
-            className="button button--green"
+            className='button button--green'
             onClick={() => {
               setCurrentZone({
-                id: "",
-                name: "",
-                map: "",
-                image: "",
+                id: '',
+                name: '',
+                map: '',
+                image: '',
                 requirements: {
-                  quests: "",
-                  npcs: "",
-                  dungeons: "",
-                  bosses: "",
-                  minibosses: "",
-                  pointsOfInterest: "",
+                  quests: '',
+                  npcs: '',
+                  dungeons: '',
+                  bosses: '',
+                  minibosses: '',
+                  pointsOfInterest: '',
                 },
               });
-              setDisplayForm("zone");
+              setDisplayForm('zone');
             }}
           >
             Create New Zone
@@ -202,20 +177,20 @@ function HomePage() {
         </div>
 
         {/* ANCHOR CHAINS */}
-        <div id="chains-container" className="category">
+        <div id='chains-container' className='category'>
           {/* ANCHOR HEADER */}
-          <div className="category-header">
-            <div className="header-img">
-              <img className="header-icon" src="./icons/icon-chain3.png" />
+          <div className='category-header'>
+            <div className='header-img'>
+              <img className='header-icon' src='./icons/icon-chain3.png' />
             </div>
-            <h1 className="header-title">Chains</h1>
-            <div className="header-img">
-              <img className="header-icon" src="./icons/icon-chain3.png" />
+            <h1 className='header-title'>Chains</h1>
+            <div className='header-img'>
+              <img className='header-icon' src='./icons/icon-chain3.png' />
             </div>
           </div>
 
           {/* ANCHOR LIST */}
-          <div className="category-list">
+          <div className='category-list'>
             {chainData.map((chain) => {
               return (
                 <ChainItem
@@ -233,32 +208,32 @@ function HomePage() {
 
           {/* ANCHOR CHAIN BUTTON */}
           <button
-            className="button button--green"
+            className='button button--green'
             onClick={() => {
               setCurrentChain({
-                id: "",
-                name: "",
+                id: '',
+                name: '',
                 quests: [],
               });
-              setDisplayForm("chain");
+              setDisplayForm('chain');
             }}
           >
             Create New Chain
           </button>
         </div>
         {/* ANCHOR QUESTS */}
-        <div id="quests-container" className="category">
+        <div id='quests-container' className='category'>
           {/* ANCHOR HEADER */}
-          <div className="category-header">
-            <div className="header-img">
-              <img className="header-icon" src="./icons/icon-quest-type.png" />
+          <div className='category-header'>
+            <div className='header-img'>
+              <img className='header-icon' src='./icons/icon-quest-type.png' />
             </div>
-            <h1 className="header-title">Quests</h1>
-            <div className="header-img">
-              <img className="header-icon" src="./icons/icon-quest-type.png" />
+            <h1 className='header-title'>Quests</h1>
+            <div className='header-img'>
+              <img className='header-icon' src='./icons/icon-quest-type.png' />
             </div>
           </div>
-          <div className="category-list">
+          <div className='category-list'>
             {questData.length > 0 ? (
               questData.map((quest) => {
                 return (
@@ -282,24 +257,24 @@ function HomePage() {
             )}
           </div>
           <button
-            className="button button--green"
+            className='button button--green'
             onClick={() => {
               setCurrentQuest({
-                id: "",
-                name: "",
-                type: "",
-                description: "",
-                zone: "",
+                id: '',
+                name: '',
+                type: '',
+                description: '',
+                zone: '',
                 reward: {
-                  type: "",
-                  description: "",
+                  type: '',
+                  description: '',
                 },
                 chain: {
-                  name: "",
-                  position: "",
+                  name: '',
+                  position: '',
                 },
               });
-              setDisplayForm("quest");
+              setDisplayForm('quest');
             }}
           >
             Create New Quest
